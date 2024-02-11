@@ -9,6 +9,7 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
+
 class _HomePageState extends State<HomePage> {
   int _selectedBarIndex = 0;
 
@@ -23,9 +24,18 @@ class _HomePageState extends State<HomePage> {
     const UserPage()
   ];
 
+  void toggleButtons() {
+
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.cyan[300],
+        shape: CircleBorder(),
+        child: Icon(Icons.add),
+        onPressed: (){},),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavBar(
         onTabChange: (index) => navigateBottomBar(index),
       ),
