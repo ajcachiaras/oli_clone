@@ -23,10 +23,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   List icons = [Icons.home, Icons.settings, Icons.location_city];
   // AddButton checkInButton = AddButton(title: 'Check In', page: CheckInPage());
   // var momentButton = AddButton(title: 'Moment', page: MomentPage());
-  List buttons = [
-    AddButton(title: 'Check In', page: CheckInPage()),
-    AddButton(title: 'Moment', page: MomentPage())
-  ];
+
+
+  // List buttons = [
+  //   AddButton(
+  //       title: 'Check In',
+  //       page: CheckInPage(),
+  //   ),
+  //   AddButton(title: 'Moment', page: MomentPage())
+  // ];
   OverlayEntry? overlayEntry;
   GlobalKey globalKey = GlobalKey();
 
@@ -55,6 +60,32 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   _showOverlay() async {
+
+
+    List buttons = [
+      AddButton(
+        title: 'Check In',
+        onPressed: () async {
+          print('running func');
+          animationController!.reverse()
+              .whenComplete(() => overlayEntry!.remove()).whenComplete(() =>
+          Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CheckInPage())));
+        },
+      ),
+      AddButton(
+        title: 'Moment',
+        onPressed: () {
+          animationController!.reverse()
+              .whenComplete(() => overlayEntry!.remove()).whenComplete(() =>
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MomentPage())));
+        },
+      )
+    ];
+
     RenderBox? renderBox = globalKey.currentContext!.findRenderObject() as RenderBox?;
     Offset offset = renderBox!.localToGlobal(Offset.zero);
 
@@ -64,15 +95,31 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         // left: offset.dx/2.5,
         left: offset.dx/2 + 6,
         bottom: renderBox.size.height + 16,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
+        child: Column(
           children: [
-            for (int i = 0; i < animation.length; i++)
-              ScaleTransition(
-                scale: animation[i],
-                child: buttons[i],
-              )
+            GestureDetector(
+              onTap: () {
+                animationController!.reverse()
+                .whenComplete(() => overlayEntry!.remove());
+              },
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.height,
+                color: Colors.red,
+                child: Text('GO AWAY'),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                for (int i = 0; i < animation.length; i++)
+                  ScaleTransition(
+                    scale: animation[i],
+                    child: buttons[i]
+                  ),
+              ],
+            ),
           ],
         ),
       )
@@ -83,10 +130,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     });
     animationController!.forward();
     overlayState!.insert(overlayEntry!);
+
+
     
-    await Future.delayed(const Duration(seconds: 5))
-      .whenComplete(() => animationController!.reverse())
-      .whenComplete(() => overlayEntry!.remove());
+    // await Future.delayed(const Duration(seconds: 5))
+    //   .whenComplete(() => animationController!.reverse())
+    //   .whenComplete(() => overlayEntry!.remove());
   }
 
   @override
