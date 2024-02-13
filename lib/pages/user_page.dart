@@ -11,7 +11,7 @@ class UserPage extends StatelessWidget {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [UserInfoBox(title: 'Total Moments'), UserInfoBox(title: 'Streak')],
+          children: [UserInfoBox(title: 'Total Moments',), UserInfoBox(title: 'Streak')],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

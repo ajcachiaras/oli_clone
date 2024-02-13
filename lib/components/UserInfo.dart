@@ -4,25 +4,42 @@ import 'package:flutter/material.dart';
 
 class UserInfoBox extends StatelessWidget {
   final String title;
-  const UserInfoBox({super.key, required this.title});
+  // void Function()? onPressed;
+  // final Widget page;
+  UserInfoBox({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(10.0),
       child: Container(
+        height: 50,
+        width: 125,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: Colors.cyanAccent,
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
             border: Border.all(
-              color: Colors.black,
+              color: Colors.cyanAccent,
             )
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text('DataData'),
-            Text(title),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // const Icon(
+              //   Icons.add,
+              //   color: Colors.white,
+              // ),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
