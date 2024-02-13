@@ -4,7 +4,6 @@ import 'package:noli/components/BottomNavBar.dart';
 import 'package:noli/pages/check_in_page.dart';
 import 'package:noli/pages/oli_page.dart';
 import 'package:noli/pages/user_page.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../components/UserInfo.dart';
 import 'moment_page.dart';
