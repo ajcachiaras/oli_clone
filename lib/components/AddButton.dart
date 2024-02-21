@@ -16,10 +16,10 @@ class AddButton extends StatelessWidget {
           height: 50,
           width: 125,
           decoration: BoxDecoration(
-              color: Colors.cyanAccent,
+              color: Colors.cyan,
               borderRadius: const BorderRadius.all(Radius.circular(20)),
               border: Border.all(
-                color: Colors.cyanAccent,
+                color: Colors.cyan,
               )
           ),
           child: Padding(
@@ -31,11 +31,14 @@ class AddButton extends StatelessWidget {
                   Icons.add,
                   color: Colors.white,
                 ),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
+                Material(
+                  type: MaterialType.transparency,
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],

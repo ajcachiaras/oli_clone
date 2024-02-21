@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-// NEED TO MAKE THIS WIDGET HAVE PARAMETERS
-
 class UserInfoBox extends StatelessWidget {
   final String title;
   // void Function()? onPressed;
@@ -16,29 +14,23 @@ class UserInfoBox extends StatelessWidget {
         height: 50,
         width: 125,
         decoration: BoxDecoration(
-          color: Colors.cyanAccent,
+          color: Colors.cyan,
           borderRadius: const BorderRadius.all(Radius.circular(20)),
             border: Border.all(
-              color: Colors.cyanAccent,
+              color: Colors.cyan,
             )
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // const Icon(
-              //   Icons.add,
-              //   color: Colors.white,
-              // ),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.white,
-                ),
+          child: Center(
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white,
               ),
-            ],
+            ),
           ),
         ),
       ),

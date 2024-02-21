@@ -24,7 +24,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   // AddButton checkInButton = AddButton(title: 'Check In', page: CheckInPage());
   // var momentButton = AddButton(title: 'Moment', page: MomentPage());
 
-
   // List buttons = [
   //   AddButton(
   //       title: 'Check In',
@@ -35,17 +34,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   OverlayEntry? overlayEntry;
   GlobalKey globalKey = GlobalKey();
 
-
   void navigateBottomBar(int index) {
     setState(() {
       _selectedBarIndex = index;
     });
   }
 
-  final List<Widget> _pages = [
-    const NoliPage(),
-    const UserPage()
-  ];
+  final List<Widget> _pages = [const NoliPage(), const UserPage()];
 
   @override
   void initState() {
@@ -60,79 +55,74 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   _showOverlay() async {
-
-
     List buttons = [
       AddButton(
         title: 'Check In',
         onPressed: () async {
-          print('running func');
-          animationController!.reverse()
-              .whenComplete(() => overlayEntry!.remove()).whenComplete(() =>
+          // print('running func');
+          animationController!.reverse();
+          overlayEntry!.remove();
           Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CheckInPage())));
+              context, MaterialPageRoute(builder: (context) => CheckInPage()));
         },
       ),
       AddButton(
         title: 'Moment',
-        onPressed: () {
-          animationController!.reverse()
-              .whenComplete(() => overlayEntry!.remove()).whenComplete(() =>
+        onPressed: () async {
+          animationController!.reverse();
+          overlayEntry!.remove();
           Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MomentPage())));
+              context, MaterialPageRoute(builder: (context) => MomentPage()));
         },
       )
     ];
 
-    RenderBox? renderBox = globalKey.currentContext!.findRenderObject() as RenderBox?;
+    RenderBox? renderBox =
+        globalKey.currentContext!.findRenderObject() as RenderBox?;
     Offset offset = renderBox!.localToGlobal(Offset.zero);
 
     OverlayState? overlayState = Overlay.of(context);
     overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
         // left: offset.dx/2.5,
-        left: offset.dx/2 + 6,
-        bottom: renderBox.size.height + 16,
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: () {
-                animationController!.reverse()
-                .whenComplete(() => overlayEntry!.remove());
-              },
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.height,
-                color: Colors.red,
-                child: Text('GO AWAY'),
+        left: 0,
+        right: 0,
+        bottom: 0, //renderBox.size.height + 16,
+        child: GestureDetector(
+          onTap: () async {
+            await animationController!.reverse();
+            overlayEntry!.remove();
+          },
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.black.withOpacity(.25),
+            child: Stack(children: [
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: renderBox.size.height + 16,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (int i = 0; i < animation.length; i++)
+                      ScaleTransition(scale: animation[i], child: buttons[i]),
+                  ],
+                ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                for (int i = 0; i < animation.length; i++)
-                  ScaleTransition(
-                    scale: animation[i],
-                    child: buttons[i]
-                  ),
-              ],
-            ),
-          ],
+            ]),
+          ),
         ),
-      )
+      ),
     );
-    
-    animationController!.addListener(() { 
+
+    animationController!.addListener(() {
       overlayState!.setState(() {});
     });
     animationController!.forward();
     overlayState!.insert(overlayEntry!);
 
-
-    
     // await Future.delayed(const Duration(seconds: 5))
     //   .whenComplete(() => animationController!.reverse())
     //   .whenComplete(() => overlayEntry!.remove());
@@ -141,18 +131,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        key: globalKey,
-        backgroundColor: Colors.cyan[300],
-        shape: CircleBorder(),
-        child: Icon(Icons.add),
-        onPressed: _showOverlay,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomNavBar(
-        onTabChange: (index) => navigateBottomBar(index),
-      ),
-      body: _pages[_selectedBarIndex]
-    );
+        floatingActionButton: FloatingActionButton(
+          key: globalKey,
+          backgroundColor: Colors.cyan[300],
+          shape: CircleBorder(),
+          child: Icon(Icons.add),
+          onPressed: _showOverlay,
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomNavBar(
+          onTabChange: (index) => navigateBottomBar(index),
+        ),
+        body: _pages[_selectedBarIndex]);
   }
 }

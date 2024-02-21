@@ -8,8 +8,10 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // width: MediaQuery.of(context).size.width,
       child: GNav(
-        padding: EdgeInsets.symmetric(horizontal: 125, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/4.6, vertical: 10),
+        // gap: MediaQuery.of(context).size.width/2,
         activeColor: Colors.cyan,
         mainAxisAlignment: MainAxisAlignment.center,
         onTabChange: (value) => onTabChange!(value),
